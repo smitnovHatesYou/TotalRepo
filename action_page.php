@@ -1,20 +1,18 @@
-<!-- action_page.php -->
-
+php
 <?php
-// Get the form data 
-$firstName = $_POST['fname']; 
-$lastName = $_POST['lname'];
+// Connect to SQLite database
+$db = new SQLite3('database.db');
+
+// Get data from the form
+$name = $_POST['name'];
 $email = $_POST['email'];
-$birthday = $_POST['birthday'];
 
-// save to database
+// Insert data into the database
+$query = "INSERT INTO users (name, email) VALUES ('$name', '$email')";
+$db->exec($query);
 
-// in action_page.php
+// Close the database connection
+$db->close();
 
-header("Location: Untitled-1.html");
-
-// in action_page.php
-$firstName = getSubmittedFirstNameFromForm();
-
-//then pass $firstname to Untitled-1.html
+echo "Data saved successfully!";
 ?>
