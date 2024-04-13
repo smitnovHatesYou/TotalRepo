@@ -1,0 +1,20 @@
+{
+    "editor.cursorBlinking": "blink",
+    "editor.cursorStyle": "block-outline",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.fontFamily": "fira code", // font family
+    "workbench.colorTheme": "GitHub Dark Dimmed", // theme
+    "editor.fontSize": 19, // font size
+    "workbench.statusBar.visible": true, // status bar
+    "editor.suggest.showCustomcolors": true,
+    "python.testing.pytestArgs": [
+        "."
+    ],
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "files.autoSaveWhenNoErrors": true,
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "python.analysis.typeCheckingMode": "off",
+    "python.analysis.autoImportCompletions": true
+}
