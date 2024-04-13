@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<style>
+  body {
+    background-color: rgb(133, 133, 229);
+    border-style: groove;
+    border-color: aliceblue;
+  }
+
+  h1 {
+    font-family: hylia serif beta;
+  }
+</style>
+
+<body>
+  <center>
+    <h1>Wordle V:II! Enter a guess word, there are nine letters in the word, here is a hint: the first letter is 'f' all
+      letters are lowercase.</h1> <!--Explaination header-->
+    <input type="text" id="input"> <!--input block-->
+    <button id="submit">Submit</button> <!--button-->
+  <table id="hints"></table>
+  </center>
+  <script>
+    const secret = 'forty-two'; // the secret word
+
+    const input = document.getElementById('input');
+    const submitBtn = document.getElementById('submit');
+    const hintsTable = document.getElementById('hints');
+
+    submitBtn.addEventListener('click', () => {
+      hintsTable.innerHTML = ''; // clear previous hints
+
+      for (let i = 0; i < input.value.length; i++) {
+        const letter = input.value[i];
+        const cell = document.createElement('td');
+        cell.textContent = letter;
+
+        if (secret.indexOf(letter) === i) {
+          // letter is in correct spot
+          cell.style.outline = '2px solid green';
+          cell.style.backgroundColor = 'lightgreen';
+        } else if (secret.includes(letter)) {
+          // letter is in word but wrong spot
+          cell.style.outline = '2px solid yellow';
+        }
+
+        hintsTable.appendChild(cell);
+      }
+
+    });
+  </script>
+</body>
+</html>

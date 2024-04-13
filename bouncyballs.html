@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<head>
+    <style>
+        body {
+            margin: 0px;
+            background-color: rgb(56, 220, 250);
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        /***
+         * DISCLAIMER: I slightly adapted this code for the homework assignment.  If you would like 
+         * the original source I will provide it after you have turned in your assignment.
+         * 
+         * Modify this method to make the body of the ball a random color.  Use the Random function
+         * Math.random() 
+         * Use this for help with random
+         * https://www.w3schools.com/js/js_random.asp
+         * 
+         * The color returned should be a css color string that looks like:
+         * "rgba(0,0,0)"
+         * Where the first 0 is the red component with a number from 0 to 255
+         * Where the second 0 is the green component with a number from 0 to 255
+         * Where the third 0 is the blue component with a number from 0 to 255
+         * 
+         */
+        function randomColor() {
+            return ("rgba(255,0,0)");
+        }
+
+
+        /**
+         * You can make a copy of this code and play with it.  Answer the 
+         * following questions 
+         * 
+         * Easy:
+         * 1) What happens if you make gravity 10?  What happens if you make 
+         * gravity .09?  What line(s) of code do you need to change, and how do
+         * you change them?  Show the new line(s) that you wrote.
+         * 
+         * 2) What line(s) of code do you need to change to make the balls all
+         * start from the same place, and how do you change those lines?  Show 
+         * the new line(s) that you wrote.
+         * 
+         * 3) How can you change the number of balls that are created?  What 
+         * line(s) of code do you need to change, and how do you change them?  
+         * Show the new line(s) that you wrote.
+         * 
+         * 4) A little harder: How can you make the balls go very slow or very
+         * fast?  What line(s) of code do you need to change, and how do you 
+         * change them?  Show the new line(s) that you wrote.
+         * 
+         * 5) Challenging: Haw can you turn the balls into boxes?  You will 
+         * need https://www.w3schools.com/jsref/canvas_rect.asp.  What line(s) 
+         * of code do you need to change, and how do you change them?  Show the
+         * new line(s) that you wrote.
+         */
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("Welcome to Bouncy Balls!");
+
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+            var tx = window.innerWidth;
+            var ty = window.innerHeight;
+            canvas.width = tx;
+            canvas.height = ty;
+
+            var mousex = 0;
+            var mousey = 0;
+
+            addEventListener("mousemove", function () {
+                mousex = event.clientX;
+                mousey = event.clientY;
+            });
+
+
+            var gravity = 0.99;
+            context.strokeWidth = 5;
+
+
+
+            function ballColor() {
+                return randomColor();
+            }
+            function outlineColor() {
+                return randomColor();
+            }
+
+            function Ball() {
+                this.ballcolor = ballColor();
+                this.outlinecolor = outlineColor();
+                this.radius = Math.random() * 20 + 14;
+                this.startradius = this.radius;
+                this.x = Math.random() * (tx - this.radius * 2) + this.radius;
+                this.y = Math.random() * (ty - this.radius);
+                this.dy = Math.random() * 2;
+                this.dx = Math.round((Math.random() - 0.5) * 10);
+                this.vel = Math.random() * 5;
+                this.update = function () {
+                    context.beginPath();
+                    context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+                    context.fillStyle = this.ballcolor;
+                    context.fill();
+                    context.strokeStyle = this.outlinecolor;
+                    context.stroke();
+                };
+            }
+
+            var ball = [];
+            for (var i = 0; i < 50; i++) {
+                ball.push(new Ball());
+            }
+
+            function animate() {
+                if (tx != window.innerWidth || ty != window.innerHeight) {
+                    tx = window.innerWidth;
+                    ty = window.innerHeight;
+                    canvas.width = tx;
+                    canvas.height = ty;
+                }
+                requestAnimationFrame(animate);
+                context.clearRect(0, 0, tx, ty);
+                for (var i = 0; i < ball.length; i++) {
+                    ball[i].update();
+                    ball[i].y += ball[i].dy;
+                    ball[i].x += ball[i].dx;
+                    if (ball[i].y + ball[i].radius >= ty) {
+                        ball[i].dy = -ball[i].dy * gravity;
+                    } else {
+                        ball[i].dy += ball[i].vel;
+                    }
+                    if (ball[i].x + ball[i].radius > tx || ball[i].x - ball[i].radius < 0) {
+                        ball[i].dx = -ball[i].dx;
+                    }
+                    if (mousex > ball[i].x - 20 &&
+                        mousex < ball[i].x + 20 &&
+                        mousey > ball[i].y - 50 &&
+                        mousey < ball[i].y + 50 &&
+                        ball[i].radius < 70) {
+                        ball[i].radius += 5;
+                    } else {
+                        if (ball[i].radius > ball[i].startradius) {
+                            ball[i].radius += -5;
+                        }
+                    }
+
+                    //forloop end
+                }
+                //animation end
+            }
+
+            animate();
+
+            setInterval(function () {
+                ball.push(new Ball());
+                ball.splice(0, 1);
+            }, 400);
+        })
+
+
+    </script>
+</head>
+
+
+<body>
+    <canvas id="canvas"></canvas>
+</body>
