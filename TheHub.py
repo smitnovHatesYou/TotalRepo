@@ -1,9 +1,9 @@
 import random
 import string
 
-print("Welcome to the hub! You have three options, a password generator, playing mad libs, or playing rock, paper, scissors, lizard, spock. Which one do you want to play?")
+print("Welcome to the hub! You have a few options, a password generator, playing mad libs, or playing rock, paper, scissors, lizard, spock, or calculate a rectangle. Which one do you want to play?")
 
-choice = input("Type 'password' to create a password or 'Mad Libs' to play Mad Libs, or 'Rock, Paper, Scissors, Lizard, Spock' to play Rock, Paper, Scissors, Lizard, Spock: ")
+choice = input("Type 'password' to create a password or 'Mad Libs' to play Mad Libs, or 'Rock, Paper, Scissors, Lizard, Spock' to play Rock, Paper, Scissors, Lizard, Spock, or type rectangle to calculate a rectangle's area: ")
 
 
 if choice == "password":
@@ -108,3 +108,11 @@ elif choice == "Rock, Paper, Scissors, Lizard, Spock":
         print("Good job!  You beat the computer!")    
     else:
         print("The computer won!")
+
+elif choice == "rectangle":
+    width = float(input("Enter the width of the rectangle: "))
+    height = float(input("Enter the height of the rectangle: "))
+    area = width * height
+    print("The area of the rectangle is", area)
+
+print("Thanks for visiting the hub!")
