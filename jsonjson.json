@@ -1,0 +1,27 @@
+{
+    "type": "ball",
+    "properties": {
+        "radius": 10,
+        "color": "red",
+        "position": {
+            "x": 0,
+            "y": 0
+        },
+        "velocity": {
+            "x": 5,
+            "y": 3
+        }
+    },
+    "update": function(dt) {
+        this.position.x += this.velocity.x * dt;
+        this.position.y += this.velocity.y * dt;
+
+        if(this.position.x < 0 || this.position.x > 100) {
+            this.velocity.x = -this.velocity.x;
+        }
+
+        if(this.position.y < 0 || this.position.y > 100) {
+            this.velocity.y = -this.velocity.y;
+        }
+    }
+}
